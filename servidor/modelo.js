@@ -53,15 +53,16 @@ function Juego(){
 	this.obtenerPartidas=function(){
 		let lista=[];
 		for (let key in this.partidas){
-			lista.push({"codigo":key,"owner":this.partidas[key].owner});
+			lista.push({"codigo":key,"owner":this.partidas[key].owner.nick});
 		}
 		return lista;
 	}
 	this.obtenerPartidasDisponibles=function(){
-		//devolver sólo las partidas sin completar
 		let lista=[];
 		for (let key in this.partidas){
-			lista.push({"codigo":key,"owner":this.partidas[key].owner.nick});
+			if (this.partidas[key].fase=="inicial"){
+				lista.push({"codigo":key,"owner":this.partidas[key].owner.nick});
+			}
 		}
 		return lista;
 	}
@@ -86,7 +87,7 @@ function Partida(codigo,usr){
 	this.maxJugadores=2;
 	this.agregarJugador=function(usr){
 		let res=this.codigo;
-		if(this.hayHueco()){
+		if (this.hayHueco()){
 			this.jugadores.push(usr);
 			console.log("El usuario "+usr.nick+" se une a la partida "+this.codigo);
 			this.comprobarFase();
@@ -97,14 +98,13 @@ function Partida(codigo,usr){
 		}
 		return res;
 	}
-	this.hayHueco=function(){
-	
-		return (this.jugadores.length<this.maxJugadores);
-	}
 	this.comprobarFase=function(){
-		if(!this.hayHueco()){
+		if (!this.hayHueco()){
 			this.fase="jugando";
 		}
+	}
+	this.hayHueco=function(){
+		return (this.jugadores.length<this.maxJugadores)
 	}
 	this.agregarJugador(this.owner);
 }
