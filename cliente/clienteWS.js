@@ -11,9 +11,8 @@ function ClienteWS(){
         this.socket.emit("crearPartida",rest.nick); 
     }
 
-    this.usuarioSale = function(nick,codigo){
-        
-        this.socket.emit("usuarioSale",rest.nick,codigo)
+    this.salir=function(){
+        this.socket.emit("salir", rest.nick);
     }
 
     this.unirseAPartida = function(codigo){
@@ -54,6 +53,18 @@ function ClienteWS(){
                 rest.comprobarUsuario();
             }
 
+        });
+
+        this.socket.on("partidaEliminada", function (data) {
+            iu.mostrarModal("La partida ha sido eliminada, un jugador ha abandonado!");
+            $.removeCookie("codigo");
+            iu.mostrarHome();
+        });
+
+        this.socket.on("usuarioEliminado", function (data) {
+            $.removeCookie("nick");
+            cli.codigo = undefined;
+            iu.mostrarAgregarUsuario();
         });
 
         this.socket.on("unidoAPartida",function(data){

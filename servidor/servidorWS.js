@@ -66,6 +66,19 @@ function ServidorWS() {
                 }
 
             })
+
+            socket.on("salir", function (nick) {
+                let codigo = juego.eliminarUsuario(nick);
+           
+                if (codigo) {
+                    let codigoStr = codigo.toString();
+                    socket.join(codigoStr);
+                    cli.enviarATodosEnPartida(io, codigoStr, "partidaEliminada", { "nick":nick, "codigo":codigo} );
+                }
+
+                cli.enviarAlRemitente(socket, "usuarioEliminado", { nick: "nick" });
+
+            });
         
             socket.on("abandonarPartida", function (nick, codigo) {
                 let jugador = juego.obtenerUsuario(nick);

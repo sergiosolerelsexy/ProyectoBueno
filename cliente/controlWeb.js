@@ -4,7 +4,7 @@ function ControlWeb() {
         if ($.cookie('nick')) {
             rest.nick = $.cookie('nick');
             rest.comprobarUsuario();
-            // cws.conectar();
+            
             this.mostrarHome();
         } else {
             this.mostrarAgregarUsuario();
@@ -13,7 +13,7 @@ function ControlWeb() {
     }
 
     this.mostrarAgregarUsuario = function () {
-        var cadena = '<div class="row" id="mAU">';//'<form class="form-row needs-validation"  id="mAU">';
+        var cadena = '<div class="row" id="mAU">';
         cadena = cadena + '<div class="col"><h2>Batalla Naval</h2></div>';
         cadena = cadena + '<div class="row">';
         cadena = cadena + '<div class="col">'
@@ -26,7 +26,7 @@ function ControlWeb() {
 
 
         $("#agregarUsuario").append(cadena);
-        //$("#nota").append("<div id='aviso' style='text-align:right'>Inicia sesión con Google para jugar</div>");    
+     
 
         $("#btnAU").on("click", function (e) {
             if ($('#usr').val() === '' || $('#usr').val().length > 6) {
@@ -69,16 +69,14 @@ function ControlWeb() {
 			$('#mLP').remove();
 			$('#mH').remove();
             $('#gc').remove();
-			rest.usuarioSale();
+			cws.salir();
             
            
             
            
-			//$.removeCookie("nick");
-			//iu.comprobarCookie();
             
 
-        })
+        });
 
         
 
@@ -86,7 +84,7 @@ function ControlWeb() {
     }
 
     this.mostrarCrearPartida = function () {
-        //dibujar un boton que al hacer click llame a crear partida de rest
+      
 
         $('#mCP').remove();
 
@@ -101,7 +99,7 @@ function ControlWeb() {
         $("#btnCP").on("click", function (e) {
             $('#mCP').remove();
             $('#mLP').remove();
-            //rest.crearPartida();  Ahora usamos WS
+         
             cws.crearPartida();
         })
 
@@ -152,7 +150,7 @@ function ControlWeb() {
         let cadena = "<div class='row' id='mLP'>";
         cadena = cadena + "<div class='col'>";
         cadena = cadena + "<h3>Lista de partidas disponibles</h3>";
-        //cadena = cadena + '<button id="btnAP" class="btn btn-primary mb-2 mr-sm-2">Actualizar Partidas</button>';
+     
         cadena = cadena + '<ul class="list-group">';
         for (i = 0; i < lista.length; i++) {
             cadena = cadena + '<li class="list-group-item"><a href="#" value="' + lista[i].codigo + '"> Nick propietario: ' + lista[i].owner + '</a></li>';
@@ -161,7 +159,7 @@ function ControlWeb() {
         cadena = cadena + "</div></div>"
         $('#listaPartidas').append(cadena);
 
-        $("#btnAP").on("click", function (e) { //este es el boton que hemos quitado por los WS
+        $("#btnAP").on("click", function (e) { 
             $('#mLP').remove();
             rest.obtenerListaPartidasDisponibles();
 
@@ -173,7 +171,7 @@ function ControlWeb() {
             if (codigo) {
                 $('#mLP').remove();
                 $('#mCP').remove();
-                //rest.unirseAPartida(codigo);
+                
                 cws.unirseAPartida(codigo);
             }
         });

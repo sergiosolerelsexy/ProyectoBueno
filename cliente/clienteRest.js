@@ -37,7 +37,7 @@ function ClienteRest(){
 		}
 			else{
                 console.log("No se ha podido registrar el usuario")
-				//iu.mostrarModal("El nick ya está en uso");
+				
 				iu.mostrarAgregarUsuario();
                 
 			}
@@ -53,7 +53,7 @@ function ClienteRest(){
             if(data.codigo!=-1){
                 console.log("Partida creada por "+nick + " con codigo "+ data.codigo)
                 iu.mostrarCodigo(data.codigo);
-				//$.cookie("nick",cli.nick);
+				
             }
             else{
                 console.log("No se ha podido crear la partida")
@@ -99,18 +99,5 @@ function ClienteRest(){
 		});
 	}
 
-	this.usuarioSale=function(){
-		let nick=this.nick;
-		
-		$.getJSON("/salir/"+nick,function(data){
-			$.removeCookie("nick");
-			iu.comprobarCookie();
-			//console.log(data.codigo,"cliente rest");
-			cws.usuarioSale(nick,data.codigo);
-		})
-	}
-    
-
-    
 }
 

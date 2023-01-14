@@ -455,16 +455,16 @@ function Barco(nombre, tam) { //"b2" barco tamaño 2
 		this.disparos++;
 		if (this.disparos < this.tam) {
 			this.estado = "tocado";
-			//console.log("Tocado");
+			
 
 		}
 		else {
 			this.estado = "hundido";
-			//console.log("Hundido!!!");
+			
 
 		}
 		tablero.ponerAgua(x, y);
-		//console.log(this.estado);
+		
 		return this.estado;
 	}
 	this.obtenerEstado = function () {
@@ -478,7 +478,7 @@ function Agua() {
 		return true;
 	}
 	this.meDisparan = function (tablero, x, y) {
-		//console.log("agua");
+		
 		return this.obtenerEstado();
 	}
 	this.obtenerEstado = function () {
