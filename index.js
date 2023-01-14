@@ -15,7 +15,7 @@ const cookieSession=require("cookie-session");
 require("./servidor/passport-setup.js");
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 var args = process.argv.slice(2);
 
 
@@ -120,7 +120,7 @@ app.get("/fallo",function(request,response){
 })
 
 //Start the server
-server.listen(3000, () => {
+server.listen(8080, () => {
 	console.log(`App está escuchando en el puerto ${PORT}`);
 	console.log('Ctrl+C para salir.');
 });
