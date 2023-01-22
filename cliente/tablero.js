@@ -68,10 +68,10 @@ function Tablero(size) {
 		self.placingOnGrid = true;
 	};
 	this.colocarBarco = function (x, y, nombre) {
-		//comprobar límites
+		
 		console.log("Colocar barco: " + x + "-" + y + " " + nombre);
 		cws.colocarBarco(nombre, x, y);
-		//return true;
+		
 	}
 	this.puedesColocarBarco = function (barco, x, y) {
 		for (i = 0; i < barco.tam; i++) {
@@ -87,7 +87,7 @@ function Tablero(size) {
 		cws.disparar(x, y);
 	}
 	this.updateCell = function (x, y, type, target) {
-		var player = target;//'human-player';
+		var player = target;
 
 		var classes = ['grid-cell', 'grid-cell-' + x + '-' + y, 'grid-' + type];
 		document.querySelector('.' + player + ' .grid-cell-' + x + '-' + y).setAttribute('class', classes.join(' '));
@@ -127,9 +127,7 @@ function Tablero(size) {
 		$('#tablero').append(cadena);
 		this.crearGrid();
 
-		// $("#btnAyuda").on("click", function () {
-		// 	iu.mostrarModal('<img src="cliente/img/ayuda.png"')
-		// })
+		
 	}
 
 	this.mostrarFlota = function () {

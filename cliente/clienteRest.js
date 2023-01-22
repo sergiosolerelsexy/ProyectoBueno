@@ -9,7 +9,7 @@ function ClienteRest(){
 			if (data.nick!=-1){
                 console.log("Usuario " + data.nick + " registrado")
                 cli.nick=data.nick;
-				//ws.nick=data.nick;
+			
 				$.cookie("nick",data.nick);
 				cws.conectar();    
 				iu.mostrarHome();

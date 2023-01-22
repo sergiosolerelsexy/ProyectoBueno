@@ -1,7 +1,7 @@
 function ClienteWS(){
     this.socket;
 
-    //enviar peticiones
+ 
     this.conectar = function(){ 
         this.socket=io();
         this.servidorWS(); 
@@ -80,9 +80,9 @@ function ClienteWS(){
         });
 
         this.socket.on("actualizarListaPartidas",function(lista){
-            //console.log("Entro a actualizar")
+          
 			if (!cli.codigo){
-                //console.log("paso el if de actualizar")
+                
 				iu.mostrarListaDePartidasDisponibles(lista);
 			}
 		});
@@ -119,7 +119,7 @@ function ClienteWS(){
 
         
         this.socket.on("aJugar",function(){
-			iu.mostrarModal("A jugaaar!");
+			iu.mostrarModal("Comienza la partida! Recuerden que comienza a disparar el usuario que ha creado la partida. ");
 		});
 
         this.socket.on("barcoColocado",function(data){
@@ -147,15 +147,21 @@ function ClienteWS(){
 
         this.socket.on("partidaTerminada", function () {
             iu.mostrarModal("La partida ha terminado");
-            //tablero.crearGrid();
+        
         });
 
         this.socket.on("noEsTuTurno", function (data) {
             iu.mostrarModal("No puedes disparar no es tu turno");
         });
 
+        this.socket.on("esTuTurno", function (data) {
+            iu.mostrarModal("Buen disparo!!!");
+        });
+
+
+
         this.socket.on("faseDesplegando", function (data) {
-            //tablero.mostrarTablero(true)
+          
             tablero.flota = data.flota;
             tablero.elementosGrid()
             tablero.mostrarFlota();
@@ -163,9 +169,8 @@ function ClienteWS(){
         });
 
         this.socket.on("finalPartida", function (res) {
-            iu.mostrarModal(res+' ha ganado la partida!!');
-            // tablero.crearGrid();
-            // tablero.mostrarTablero(false);
+            iu.mostrarModal(res+' HA GANADO LA PARTIDA!!!!!');
+          
             iu.finalPartida();
         });
 

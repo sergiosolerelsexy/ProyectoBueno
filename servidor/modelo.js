@@ -2,7 +2,7 @@ let cad= require('./cad.js');
 
 function Juego(test) {
 	this.partidas = {};
-	this.usuarios = {}; //array asociativo
+	this.usuarios = {}; 
 	this.cad= new cad.Cad();
 	this.test=test;
 
@@ -24,7 +24,7 @@ function Juego(test) {
 	this.usuarioSale = function (nick) {
 		if (this.usuarios[nick]) {
 			codigo=this.finalizarPartida(nick);
-			//console.log(codigo,"modelo-usuarioSale")
+		
 			this.eliminarUsuario(nick);
 			this.insertarLog({"operacion":"finSesion","usuario":nick,"fecha":Date()},function(){
 				console.log("Registro de log(salir) insertado");
@@ -39,7 +39,7 @@ function Juego(test) {
 		let res = { codigo: -1 };
 		if (usr) {
 			let codigo = usr.crearPartida();
-			//let codigo=this.crearPartida(usr);
+		
 			res = { codigo: codigo };
 		}
 		return res;
@@ -49,7 +49,7 @@ function Juego(test) {
 		let res = { "codigo": -1 };
 		if (usr) {
 			let valor = usr.unirseAPartida(codigo);
-			//let valor=this.unirseAPartida(codigo,usr)
+			
 			res = { "codigo": valor };
 		}
 		return res;
@@ -152,7 +152,7 @@ function Usuario(nick, juego) {
 		this.flota["b2"] = new Barco("b2", 2);
 		this.flota["b3"] = new Barco("b3", 3);
 		this.flota["b4"] = new Barco("b4", 4);
-		this.flota["b5"] = new Barco("b5",5);
+		this.flota["b5"] = new Barco("b5", 5);
 		
 		
 	}
@@ -180,7 +180,7 @@ function Usuario(nick, juego) {
 	}
 	this.barcosDesplegados = function () {
 		this.partida.barcosDesplegados();
-		//console.log(this.partida)
+		
 	}
 	this.disparar = function (x, y) {
 		return this.partida.disparar(this.nick, x, y);
@@ -246,7 +246,7 @@ function Partida(codigo, usr) {
 	this.codigo = codigo;
 	this.owner = usr;
 	this.jugadores = [];
-	this.fase = "inicial"; //new Inicial()
+	this.fase = "inicial"; 
 	this.maxJugadores = 2;
 	this.agregarJugador = function (usr) {
 		let res = this.codigo;
@@ -336,7 +336,7 @@ function Partida(codigo, usr) {
 		if (this.turno.nick == atacante.nick) {
 			let atacado = this.obtenerRival(nick);
 			let estado = atacado.meDisparan(x, y);
-			//let estado=atacado.obtenerEstado(x,y);
+			
 			console.log(estado);
 			atacante.marcarEstado(estado, x, y);
 			
@@ -366,9 +366,7 @@ function Partida(codigo, usr) {
 			if(rival){
 			console.log("Ganador: " + rival.nick);
 			}
-			// this.jugador.juego.cad.insertarLog({"operacion":"crearPartida","propietario":usr.nick,"fecha":Date()},function(){
-			// 	console.log("Registro de log(abandonar) insertado");
-			// });
+			
 			jugador.logAbandonarPartida(jugador,this.codigo);
 
 
@@ -379,7 +377,7 @@ function Partida(codigo, usr) {
 }
 
 function Tablero(size) {
-	this.size = size; //filas=columnas=size
+	this.size = size; 
 	this.casillas;
 	this.crearTablero = function (tam) {
 		this.casillas = new Array(tam);
@@ -396,7 +394,7 @@ function Tablero(size) {
 			if (this.casillasLibres(x, y, barco.tam)) {
 				for (i = x; i < barco.tam + x; i++) {
 					this.casillas[i][y].contiene = barco;
-					//console.log('Revisando casillas', i, y, ':', this.casillas[i][y].contiene);
+					
 					console.log('Barco', barco.nombre, 'colocado en', i, y)
 				}
 				barco.desplegado = true;
@@ -441,10 +439,10 @@ function Casilla(x, y) {
 	this.contiene = new Agua();
 }
 
-function Barco(nombre, tam) { //"b2" barco tamaño 2
+function Barco(nombre, tam) { 
 	this.nombre = nombre;
 	this.tam = tam;
-	this.orientacion; //horizontal, vertical...
+	this.orientacion; 
 	this.desplegado = false;
 	this.estado = "intacto";
 	this.disparos = 0;

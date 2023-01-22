@@ -1,8 +1,8 @@
 function ServidorWS() {
 
-    //enviar peticiones
+    
 
-    this.enviarAlRemitente = function (socket, mensaje, datos) {  //Para contestar solo al que hace la peticion, abra otros de broadcast
+    this.enviarAlRemitente = function (socket, mensaje, datos) {  
         socket.emit(mensaje, datos);
     }
 
@@ -20,7 +20,6 @@ function ServidorWS() {
 
 
 
-    //gestionar peticiones
     this.lanzarServidorWS = function (io, juego) {
         let cli = this;
         io.on('connection', (socket) => {
@@ -29,7 +28,7 @@ function ServidorWS() {
                 let res = juego.jugadorCreaPartida(nick);
                 let codigoStr = res.codigo.toString();
                 socket.join(codigoStr);
-                //cli.enviarAlRemitente(socket,"partidaCreada",res);
+                
                 cli.enviarATodosEnPartida(io, codigoStr, "partidaCreada", res)
                 let lista = juego.obtenerPartidasDisponibles();
                 cli.enviarATodos(socket, "actualizarListaPartidas", lista);
@@ -40,8 +39,7 @@ function ServidorWS() {
                 let res = juego.jugadorSeUneAPartida(nick, codigo);
                 cli.enviarAlRemitente(socket, "unidoAPartida", res);
                 let partida = juego.obtenerPartida(codigo);
-                // if (partida.esJugando()) {
-                //     cli.enviarATodosEnPartida(io, codigoStr, "aJugar", {});
+                
                 // }
                 if (partida.esDesplegando()) {
                     let us = juego.obtenerUsuario(nick);
@@ -57,8 +55,7 @@ function ServidorWS() {
                 let lista = juego.obtenerPartidasDisponibles();
               
                 res= {jugadorS:nick} 
-                //console.log(nick)
-                //console.log(codigo)
+               
                 if(codigo){
                     let codigoStr =codigo.toString();              
                     cli.enviarATodosEnPartida(io, codigoStr, "usuarioSalido", res);
@@ -136,10 +133,11 @@ function ServidorWS() {
                     
                     
                     if (jugador == turno) {
-                      
+                        cli.enviarAlRemitente(socket, "esTuTurno", res);
+                        
                         let impacto=jugador.disparar(x, y)
                         console.log(impacto,"ServSo")
-                       
+                        
                         let codigoStr = partida.codigo.toString();
                         if (partida.esFinal()) {
                             cli.enviarATodosEnPartida(io, partida.codigo.toString(), "finalPartida", jugador.nick);
