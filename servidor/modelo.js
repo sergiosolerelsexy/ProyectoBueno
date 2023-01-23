@@ -150,9 +150,9 @@ function Usuario(nick, juego) {
 	this.inicializarFlota = function () {
 		
 		this.flota["b2"] = new Barco("b2", 2);
-		this.flota["b3"] = new Barco("b3", 3);
+		//this.flota["b3"] = new Barco("b3", 3);
 		this.flota["b4"] = new Barco("b4", 4);
-		this.flota["b5"] = new Barco("b5", 5);
+		//this.flota["b5"] = new Barco("b5", 5);
 		
 		
 	}
